@@ -17,7 +17,7 @@ public class InspectorModeToggle
         //DebugInternal = 2,
     }
 
-    [MenuItem("Window/Toggle Inspector Mode %&d")]
+    [MenuItem("Window/Toggle Inspector Mode #&d")]
     public static void ToggleInspectorMode()
     {
         Assembly unityEngineAssembly = new List<Assembly>(AppDomain.CurrentDomain.GetAssemblies()).Find(x => x.GetName().ToString().StartsWith("UnityEditor,"));
