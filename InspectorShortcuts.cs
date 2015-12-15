@@ -17,7 +17,7 @@ public static class InspectorShortcuts
 		//DebugInternal = 2,
 	}
 
-	static Assembly unityEngineAssembly;
+	static Assembly unityEditorAssembly;
 	static Type inspectorWindowType;
 	static Type inspectorModeType;
 	static FieldInfo allInspectorsFieldInfo;
@@ -28,14 +28,14 @@ public static class InspectorShortcuts
 
 	static bool Init()
 	{
-		unityEngineAssembly = new List<Assembly>(AppDomain.CurrentDomain.GetAssemblies()).Find(x => x.GetName().ToString().StartsWith("UnityEditor,"));
-		if (unityEngineAssembly == null)
+		unityEditorAssembly = Assembly.GetAssembly(typeof(Editor));
+		if (unityEditorAssembly == null)
 		{
 			return false;
 		}
 
-		inspectorWindowType = GetTypeFromAssembly("UnityEditor.InspectorWindow", unityEngineAssembly, true);
-		inspectorModeType = GetTypeFromAssembly("UnityEditor.InspectorMode", unityEngineAssembly, true);
+		inspectorWindowType = unityEditorAssembly.GetType("UnityEditor.InspectorWindow");
+		inspectorModeType = unityEditorAssembly.GetType("UnityEditor.InspectorMode");
 		if (inspectorWindowType == null || inspectorModeType == null)
 		{
 			return false;
